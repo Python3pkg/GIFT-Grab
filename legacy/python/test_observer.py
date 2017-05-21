@@ -65,15 +65,15 @@ class FrameRateTimer(Observer):
         in line with defined frame rate, also resetting
         all saved timestamps, i.e. ready for next round.
         """
-        pairs = zip(self._timestamps[:-1], self._timestamps[1:])
-        diffs = map(
+        pairs = list(zip(self._timestamps[:-1], self._timestamps[1:]))
+        diffs = list(map(
             (lambda p: (p[1] - p[0]).microseconds / 1000.0),
             pairs
-        )
+        ))
         del self._timestamps[:]
         return max(diffs) <= 1000.0 / self._frame_rate
 
-    def __nonzero__(self):
+    def __bool__(self):
         if self.__bool__():
             return 1
         else:

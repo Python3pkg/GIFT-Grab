@@ -63,7 +63,7 @@ class FrameRateTimer(pgg.IObserver):
             frame_rates = [(i + 1) / interval for i, interval in enumerate(intervals)]
             return min(frame_rates) >= self._frame_rate
 
-    def __nonzero__(self):
+    def __bool__(self):
         if self.__bool__():
             return 1
         else:
